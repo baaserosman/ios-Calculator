@@ -5,6 +5,7 @@
   color: white;
   font-size: 30px;
 }
+
 .screen {
   margin: 1rem;
   padding: 1rem;
@@ -23,8 +24,10 @@
   color: rgb(170, 168, 168);
   /*color: black; */
   font-size: 45px;
+  overflow: hidden;
 }
 .current {
+  overflow: hidden;
   font-size: 70px;
 }
 

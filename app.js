@@ -63,7 +63,7 @@ console.log(ac);
 currDisp = document.querySelector(".current");
 
 ac.onclick = () => {
-  // preDisp.textContent = "";
+  preDisp.textContent = "";
   currDisp.textContent = "";
   // currDisp.remove(currDisp);  remove yapınca neden olmadı hocaya sor.
   // currDisp.textContent = currDisp.remove(currDisp.textContent);
