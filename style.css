@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+  font-size: 30px;
+}
+.screen {
+  margin: 1rem;
+  padding: 1rem;
+  width: 370px;
+  background-color: black;
+  color: white;
+  border-radius: 15px;
+}
+
+.header {
+  height: 5em;
+  text-align: right;
+  font-size: 45px;
+}
+.previous {
+  color: rgb(170, 168, 168);
+  /*color: black; */
+  font-size: 45px;
+}
+.current {
+  font-size: 70px;
+}
+
+.row {
+  margin-bottom: 5px;
+}
+.col {
+  margin: 0;
+  padding: 0;
+}
+
+.col button {
+  width: 85px;
+  height: 85px;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-color: rgb(51, 50, 50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.col button:hover {
+  background-color: rgb(158, 155, 155);
+}
+
+.col #zero:hover {
+  background-color: rgb(158, 155, 155);
+}
+.col .operators {
+  background-color: #f28705;
+}
+.col .operators:hover {
+  background-color: #f3ad58;
+}
+.col .equal {
+  background-color: #f28705;
+}
+.col .equal:hover {
+  background-color: #f3ad58;
+}
+
+.col .first-icons {
+  background-color: gray;
+}
+.col .first-icons:hover {
+  background-color: rgb(199, 193, 193);
+}
+
+#zero {
+  flex: 130%;
+  border-radius: 10rem;
+  width: 170px;
+  height: 85px;
+  /* border-radius: 30%; */
+  background-color: rgb(51, 50, 50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+i {
+  color: white;
+}
