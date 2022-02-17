@@ -19,16 +19,21 @@
   height: 5em;
   text-align: right;
   font-size: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .previous {
   color: rgb(170, 168, 168);
   /*color: black; */
   font-size: 45px;
   overflow: hidden;
+  height: 60px;
 }
 .current {
   overflow: hidden;
   font-size: 70px;
+  height: 90px;
 }
 
 .row {
@@ -84,8 +89,10 @@
   /* border-radius: 30%; */
   background-color: rgb(51, 50, 50);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding-left: 35px;
+  font-size: 35px;
 }
 
 i {
