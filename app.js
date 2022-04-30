@@ -1,162 +1,174 @@
-//!  PRINTING ENTERED NUMBERS TO THE CURRENT SCREEN ***
+//* ======================================================
+//*                     IOS CALCULATOR
+//* ======================================================
 
-const numbers = document.querySelectorAll(".number button");
+//? Selectors
+//! We can use getElementsByClassName selector to select multiple html elements. But, if we want to iterate these elements, we can use Array.from() method or spread/rest (...) operator.
+// const numberButtons = document.getElementsByClassName("num");
+// Array.from(numberButtons).forEach((element) => {
+//   console.log(element);
+// });
+// [...numberButtons].forEach((element) => {
+//   console.log(element);
+// });
 
-let currDisp = document.querySelector(".current");
-let preDisp = document.querySelector(".previous");
+const numberButtons = document.querySelectorAll(".num");
+const operationButtons = document.querySelectorAll(".operator");
+const equalsButton = document.querySelector(".equal");
+const acButton = document.querySelector(".ac");
+const pmButton = document.querySelector(".pm");
+const percentButton = document.querySelector(".percent");
+const prevDisp = document.querySelector(".previous-display");
+const currDisp = document.querySelector(".current-display");
 
-for (let i in numbers) {
-  numbers[i].onclick = () => {
-    currDisp.textContent += numbers[i].textContent;
-  };
-}
+//? Operator variables
+let previousOperand = "";
+let currentOperand = "";
+let operation = "";
 
-//! ------------------------------------------//
-//** FIND INDEX OF OPERAOTOR*/
-//! -----------------------------------------//
+//* After equal or percent buttons are pressed and then new number entered, we should clear the current display. This boolean variable is used to check these buttons are pressed or not
+let equalOrPercentBtnPressed = false;
 
-let indexof = 0;
-let index = () => {
-  let arr = [];
-  arr.push(currDisp.textContent.lastIndexOf("+"));
-  arr.push(currDisp.textContent.lastIndexOf("-"));
-  arr.push(currDisp.textContent.lastIndexOf("*"));
-  arr.push(currDisp.textContent.lastIndexOf("/"));
-  indexof = Math.max(...arr);
-  console.log(indexof);
+//?numbers and decimal buttons event
+numberButtons.forEach((number) => {
+  number.addEventListener("click", () => {
+    appendNumber(number.textContent);
+    updateDisplay();
+  });
+});
+
+//?Operator button event
+operationButtons.forEach((op) => {
+  op.addEventListener("click", () => {
+    chooseOperator(op.textContent);
+    updateDisplay();
+  });
+});
+
+//? Equal button event
+equalsButton.addEventListener("click", () => {
+  compute();
+  updateDisplay();
+  equalOrPercentBtnPressed = true;
+});
+
+//? All Clear(AC) button event
+acButton.addEventListener("click", () => {
+  clear();
+  updateDisplay();
+});
+
+//? plus-minus(+-) button event
+pmButton.addEventListener("click", () => {
+  plusMinus();
+  updateDisplay();
+});
+
+//? percent (%) button event
+percentButton.addEventListener("click", () => {
+  percent();
+  updateDisplay();
+  equalOrPercentBtnPressed = true;
+});
+
+//? When number and decimal buttons are clicked, this function appends the number's textContent to the operands
+const appendNumber = (num) => {
+  //? if our number includes . and user reenters ., it returns
+  if (num === "." && currentOperand.includes(".")) return;
+
+  //? if user enters 0 and then reenter 0 , it returns
+  if (currentOperand === "0" && num === "0") return;
+
+  //? if user enters 0  then dont enter 0 and . , it display this entered value.
+  if (currentOperand === "0" && num !== "0" && num !== ".") {
+    currentOperand = num;
+    return;
+  }
+  //? if user enters more than 10 digit,it returns
+  if (currentOperand.length > 10) return;
+
+  //? if equal or percent btn is pressed and then user enter new number, it display just new entered number
+  if (equalOrPercentBtnPressed) {
+    equalOrPercentBtnPressed = false; //* clear for next usage
+    currentOperand = num;
+    return;
+  }
+  //? otherwise,it concatinates all numbers to display them
+  currentOperand += num;
 };
 
-//!  PRINTING ENTERED COMMA TO THE CURRENT SCREEN ***
-
-const comma = document.querySelector("#comma");
-comma.onclick = () => {
-  index();
-  if (currDisp.textContent == 0) {
-    currDisp.textContent = "0.";
+//? Display the numbers and computation
+const updateDisplay = () => {
+  //? if computation or number is too long, it trims
+  if (currentOperand.toString().length > 12) {
+    currentOperand = currentOperand.toString().slice(0, 12);
   }
-  if (
-    !currDisp.textContent.includes(".", indexof) &&
-    (currDisp.textContent.includes("+") ||
-      currDisp.textContent.includes("-") ||
-      currDisp.textContent.includes("*") ||
-      currDisp.textContent.includes("/")) &&
-    currDisp.textContent.slice(-1) != "."
-  ) {
-    currDisp.textContent += ".";
-  }
-  if (currDisp.textContent.length < 2) {
-    currDisp.textContent += ".";
-  }
-  if (!currDisp.textContent.includes(".")) {
-    if (currDisp.textContent.slice(-1).includes(transactions)) {
-      currDisp.textContent += "0.";
-    } else {
-      currDisp.textContent += "0.";
-    }
-  }
-};
+  currDisp.textContent = currentOperand;
 
-//! AC --> DELETED THE CURRENT SCREEN ***
-
-const ac = document.querySelector("#ac");
-console.log(ac);
-currDisp = document.querySelector(".current");
-
-ac.onclick = () => {
-  preDisp.textContent = "";
-  currDisp.textContent = "";
-  // currDisp.remove(currDisp);  remove yapınca neden olmadı hocaya sor.
-  // currDisp.textContent = currDisp.remove(currDisp.textContent);
-};
-
-//!  PRINTING + / - OPERATORS TO THE CURRENT SCREEN ***
-
-const ngtvPstv = document.querySelector("#negative");
-
-currDisp = document.querySelector(".current");
-
-ngtvPstv.onclick = () => {
-  if (currDisp.textContent == Number(currDisp.textContent)) {
-    currDisp.textContent = 0 - currDisp.textContent;
-  }
-};
-
-//! % - OPERATOR ***
-
-const percent = document.querySelector("#percent");
-
-currDisp = document.querySelector(".current");
-
-percent.onclick = () => {
-  if (currDisp.textContent == Number(currDisp.textContent)) {
-    currDisp.textContent = currDisp.textContent / 100;
-  }
-};
-
-//!  PRINTING ENTERED OPERATORS TO THE CURRENT SCREEN ***
-const transactions = document.querySelectorAll(".operators");
-currDisp = document.querySelector(".current");
-
-for (let i in transactions) {
-  transactions[i].onclick = () => {
-    let lastIndex = currDisp.textContent.slice(-1);
-
-    if (lastIndex == "") {
-      currDisp.textContent = "";
-    } else if (lastIndex == "+") {
-      currDisp.textContent += "";
-    } else if (lastIndex == "-") {
-      currDisp.textContent += "";
-    } else if (lastIndex == "/") {
-      currDisp.textContent += "";
-    } else if (lastIndex == "*") {
-      currDisp.textContent += "";
-    } else {
-      currDisp.textContent += transactions[i].textContent;
-    }
-  };
-}
-
-//! EQUAL - OPERATOR *******
-// const equal = document.querySelector(".equal");
-// currDisp = document.querySelector(".current");
-
-// equal.onclick = () => {
-//   currDisp.textContent = eval(currDisp.textContent);
-// };
-const equal = document.querySelector(".equal");
-// currDisp = document.querySelector(".current");
-
-equal.onclick = () => {
-  let lastIndex = currDisp.textContent.slice(-1);
-  if (lastIndex == "+") {
-    currDisp.textContent = eval(currDisp.textContent.replace("+", ""));
-    console.log(currDisp.textContent.replace("+", ""));
-  } else if (lastIndex == "-") {
-    currDisp.textContent = eval(currDisp.textContent.replace("-", ""));
-  } else if (lastIndex == "/") {
-    currDisp.textContent = eval(currDisp.textContent.replace("/", ""));
-  } else if (lastIndex == "*") {
-    currDisp.textContent = eval(currDisp.textContent.replace("*", ""));
-  } else if (lastIndex == Number(lastIndex)) {
-    let preDisp = document.querySelector(".previous");
-    preDisp.textContent = eval(currDisp.textContent);
-    currDisp.textContent = "";
-    // for (let i in numbers) {
-    //   numbers[i].onclick = () => {};
-    //   currDisp.textContent = numbers[i].textContent;
-    // }
+  if (operation != null) {
+    prevDisp.textContent = `${previousOperand} ${operation}`;
   } else {
-    preDisp.textContent = eval(currDisp.textContent);
-    currDisp.textContent = "";
+    prevDisp.textContent = "";
   }
 };
+const chooseOperator = (op) => {
+  //? if user clicks any operator button without entering any number,it returns
+  if (currentOperand === "") return;
 
-// let num = document.querySelectorAll(".number button");
+  //? if user enter any number then press any operator button, it computes
+  if (previousOperand) {
+    compute();
+  }
 
-// for (let i in num) {
-//   num[i].onclick = () => {
-//     currDisp.textContent == num[i].textContent;
-//   };
-//   console.log(num[i].textContent);
-// }
+  //? variable swapping
+  operation = op;
+  previousOperand = currentOperand;
+  currentOperand = "";
+};
+
+//? compute the result
+const compute = () => {
+  let computation;
+  const prev = parseFloat(previousOperand);
+  const current = parseFloat(currentOperand);
+  if (isNaN(prev) || isNaN(current)) return;
+  switch (operation) {
+    case "+":
+      computation = prev + current;
+      break;
+    case "-":
+      computation = prev - current;
+      break;
+    case "x":
+      computation = prev * current;
+      break;
+    case "÷":
+      computation = prev / current;
+      break;
+    default:
+      return;
+  }
+  currentOperand = computation;
+  operation = "";
+  previousOperand = "";
+  //? if equal button is clicked, we should reset operation and previousOperand for next usage
+};
+
+//? when ac button is clicked, clear all displays
+const clear = () => {
+  operation = "";
+  previousOperand = "";
+  currentOperand = "";
+};
+
+//? when pm button is clicked, toggle the polarity of entered value
+const plusMinus = () => {
+  if (!currentOperand) return;
+  currentOperand = currentOperand * -1;
+};
+
+//? when % button is clicked
+const percent = () => {
+  if (!currentOperand) return;
+  currentOperand = currentOperand / 100;
+};
