@@ -6,35 +6,41 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <title>JS Calculator</title>
     <link rel="stylesheet" href="style.css" />
+    <title>JS Calculator</title>
+    <link
+      rel="shortcut icon"
+      href="./calculator-favicon.png"
+      type="image/x-icon"
+    />
+    
   </head>
   <body>
-    <div class="calculator">
+    <div class="container">
       <div class="display">
-        <div class="previous-display"></div>
-        <div class="current-display"></div>
+        <div class="display-up"></div>
+        <div class="display-down"></div>
       </div>
-      <div class="buttons-container">
-        <div class="button function ac">AC</div>
-        <div class="button function pm">±</div>
-        <div class="button function percent">%</div>
-        <div class="button operator division">÷</div>
-        <div class="button num number-7">7</div>
-        <div class="button num number-8">8</div>
-        <div class="button num number-9">9</div>
-        <div class="button operator multiplication">x</div>
-        <div class="button num number-4">4</div>
-        <div class="button num number-5">5</div>
-        <div class="button num number-6">6</div>
-        <div class="button operator subtraction">-</div>
-        <div class="button num number-1">1</div>
-        <div class="button num number-2">2</div>
-        <div class="button num number-3">3</div>
-        <div class="button operator addition">+</div>
-        <div class="button num number-0">0</div>
-        <div class="button num decimal">.</div>
-        <div class="button equal">=</div>
+      <div class="keys">
+        <div class="box row1-1"><button>AC</button></div>
+        <div class="box row1-2"><button>±</button></div>
+        <div class="operator box row1-3"><button>%</button></div>
+        <div class="operator box row1-4"><button>÷</button></div>
+        <div class="number box row2-1"><button>7</button></div>
+        <div class="number box row2-2"><button>8</button></div>
+        <div class="number box row2-3"><button>9</button></div>
+        <div class="operator box row2-4"><button>x</button></div>
+        <div class="number box row3-1"><button>4</button></div>
+        <div class="number box row3-2"><button>5</button></div>
+        <div class="number box row3-3"><button>6</button></div>
+        <div class="operator box row3-4"><button>-</button></div>
+        <div class="number box row4-1"><button>1</button></div>
+        <div class="number box row4-2"><button>2</button></div>
+        <div class="number box row4-3"><button>3</button></div>
+        <div class="operator box row4-4"><button>+</button></div>
+        <div class="number box row5-1"><button>0</button></div>
+        <div class="box row5-2"><button>.</button></div>
+        <div class="box row5-3"><button>=</button></div>
       </div>
     </div>
     <script
